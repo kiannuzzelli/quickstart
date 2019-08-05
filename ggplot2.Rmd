@@ -8,3 +8,30 @@ output: html_document
 # Learning ggplot1
 
 We are learning ggplot2 and it's going to be amazing 
+
+```{r, include=FALSE}
+library (tidyverse)
+ohi_data <- read_csv("https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/OHI_global_data.csv")
+head (ohi_data)
+summary (ohi_data)
+table (ohi_data$georegion_one)
+table (ohi_data$georegion_two)
+```
+
+```{r}
+ggplot(data=ohi_data, aes(x=OHI_score, y=HDI)) +
+  geom_point()
+
+ggplot(data=ohi_data, aes (x=georegion_one, y=OHI_score)) +
+  geom_jitter(width=0.2)
+
+ggplot(data = ohi_data, aes(x = georegion_one)) + 
+  geom_bar() 
+
+
+```
+
+```{r}
+
+```
+
