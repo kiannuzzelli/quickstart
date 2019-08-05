@@ -32,6 +32,69 @@ ggplot(data = ohi_data, aes(x = georegion_one)) +
 ```
 
 ```{r}
+ohi_summary <- read_csv("https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/OHI_scores_georegion_summary.csv")
 
+ohi_summary
+ggplot(data = ohi_summary, aes(x = georegions, y = OHI_score_average)) + 
+  geom_bar(stat="identity") +
+  geom_jitter(data=ohi_data, aes(x=georegion_one, y=OHI_score))
+
+ggplot(data = ohi_data, aes(y=OHI_score, x = HDI, color=georegion_one)) +
+  geom_point()
+
+ggplot(data = ohi_data, aes(x = OHI_score, y = HDI, size = coastal_pop)) + 
+  geom_point()
+
+ggplot(data = ohi_data, aes(x = OHI_score, y = HDI, color = coastal_pop)) + 
+  geom_point()
+ggplot(data = ohi_data, aes(x = OHI_score, y = HDI, label=country)) + 
+  geom_point(aes(x = OHI_score, y = HDI)) 
+ggplot(data = ohi_data, aes(x = OHI_score, y = HDI, label=country)) + 
+  geom_point(aes(x = OHI_score, y = HDI)) +
+  geom_text()
+```
+## cleaning things up 
+
+Use theme_
+
+```{r}
+ggplot(data=ohi_data, aes(x=OHI_score, y=HDI)) +
+  geom_point() +
+  theme_bw()
+```
+
+### Scatter themed
+
+```{r}
+source('https://raw.githubusercontent.com/OHI-Science/ohiprep/master/src/R/scatterTheme.txt')       
+
+ggplot(data = ohi_data, aes(x = OHI_score, y = HDI)) + 
+  geom_point() + 
+  scatterTheme
+```
+### labels 
+
+```{r}
+ggplot(data = ohi_data, aes(y = OHI_score, x = HDI, color=georegion_one)) + 
+  geom_point() + 
+    labs(y = "OHI score, 2017",
+       x = "Human Development Index",
+       title = "Countries with high human development have more sustainable oceans",
+      color = "Georegion") +  
+     theme_bw()
+```
+
+### making a histogram 
+
+```{r}
+histogram_plot <- ggplot(data = ohi_data, aes(x=OHI_score)) +
+  geom_histogram()
+
+histogram_plot +
+  geom_histogram(fill="lightgrey")
+
+histogram_plot +
+  labs (x= "OHI Score in 2017",
+        y="Number of countries", title= "OHI of countries")
 ```
 
